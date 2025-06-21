@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import axiosInstance from "@/api/axiosInstance"; // 우리가 만든 인스턴스를 import 합니다.
+import ReloadPrompt from "./components/ReloadPrompt";
 
 function App() {
   const [message, setMessage] = useState("버튼을 눌러주세요.");
@@ -22,16 +23,19 @@ function App() {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center gap-4">
-      {/* 중복클릭 방지*/}
-      <Button onClick={handleFetchData} disabled={isLoading}>
-        {isLoading ? "로딩중" : "호출 테스트"}
-      </Button>
+    <>
+      <ReloadPrompt />
+      <div className="flex h-screen flex-col items-center justify-center gap-4">
+        {/* 중복클릭 방지*/}
+        <Button onClick={handleFetchData} disabled={isLoading}>
+          {isLoading ? "로딩중" : "호출 테스트"}
+        </Button>
 
-      <div className="rounded-md border bg-gray-100 p-4 font-mono">
-        <p className="text-lg font-semibold">{message}</p>
+        <div className="rounded-md border bg-gray-100 p-4 font-mono">
+          <p className="text-lg font-semibold">{message}</p>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
