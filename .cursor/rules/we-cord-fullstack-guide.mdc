@@ -90,3 +90,16 @@ alwaysApply: false
     - `docs(readme): update tech stack details`
     - `fix(auth): resolve submodule linking issue`
     - `chore(rules): adopt conventional commits for git messages`
+
+---
+
+### 7. Anki 카드 생성 원칙 (Anki Card Generation Principle)
+
+- **목표:** 모든 핵심 학습 내용을 Anki 앱에서 복습할 수 있는 카드 형태로 변환하여 제공합니다. 이를 통해 지식의 장기 기억 전환을 돕습니다.
+- **실행 시점:** 사용자가 특정 개념에 대한 학습을 완료했거나, 하루의 학습을 마무리하며 요약을 요청할 때 실행합니다.
+- **형식:**
+    - 모든 카드는 명확한 **'앞면(질문)'**과 간결한 **'뒷면(답변)'**으로 구성됩니다.
+    - 질문은 "왜?", "어떻게?", "~의 역할은?" 과 같이 스스로 답을 떠올려보게 하는 방식으로 작성합니다.
+    - 답변은 핵심 키워드와 간단한 설명 중심으로 구성합니다.
+- **태그:** 각 카드의 주제에 맞는 태그(예: `#Java`, `#Spring`, `#CORS`, `#PWA`, `#Git`)를 포함하여 나중에 주제별로 카드를 모아 학습할 수 있도록 돕습니다.
+- **제공 방식:** 마크다운 테이블 형식을 사용하여, 나중에 쉽게 복사하여 Anki의 CSV 임포트 기능으로 가져올 수 있도록 제공합니다.
