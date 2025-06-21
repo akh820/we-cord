@@ -6,24 +6,33 @@
 
 ```
 we-cord/
-├── we-cord-be/  # 백엔드 (Spring Boot)
-└── we-cord-fe/  # 프론트엔드 (React + TypeScript)
+├── we-cord-be/  # 백엔드 (Spring Boot, Java)
+└── we-cord-fe/  # 프론트엔드 (React, TypeScript)
 ```
 
-## 🛠️ 기술 스택
+## 🛠️ 기술 스택 (Tech Stack)
 
 ### 프론트엔드 (`we-cord-fe`)
 
-- **Framework**: React
-- **Language**: TypeScript
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
+| 구분           | 기술               | 버전     | 역할                                        |
+| -------------- | ------------------ | -------- | ------------------------------------------- |
+| 언어           | `TypeScript`       | ~5.8.3   | 정적 타입 지원, 코드 안정성 향상            |
+| 프레임워크     | `React`            | ^19.1.0  | UI 라이브러리                               |
+| 빌드 도구      | `Vite`             | ^6.3.5   | 빠르고 효율적인 프론트엔드 빌드 시스템      |
+| 스타일링       | `Tailwind CSS`     | ^3.4.4   | Utility-First 방식의 CSS 프레임워크         |
+| 라우팅         | `React Router DOM` | ^6.30.1  | 클라이언트 사이드 라우팅 관리               |
+| 서버 상태 관리 | `TanStack Query`   | ^5.80.10 | 서버 데이터 Fetching, Caching, 동기화       |
+| UI 컴포넌트    | `shadcn/ui`        | -        | Radix UI 기반의 재사용 가능한 컴포넌트 모음 |
 
 ### 백엔드 (`we-cord-be`)
 
-- **Framework**: Spring Boot
-- **Language**: Java
-- **Build Tool**: Gradle
+| 구분            | 기술          | 버전  | 역할                                               |
+| --------------- | ------------- | ----- | -------------------------------------------------- |
+| 언어            | `Java`        | 17    | 백엔드 주력 개발 언어                              |
+| 프레임워크      | `Spring Boot` | 3.5.3 | Java 기반의 웹 애플리케이션 프레임워크             |
+| 빌드 도구       | `Gradle`      | -     | 의존성 관리 및 프로젝트 빌드                       |
+| 핵심 라이브러리 | `Spring Web`  | -     | RESTful API 개발 및 웹 기능 지원                   |
+| 유틸리티        | `Lombok`      | -     | 어노테이션 기반 코드 자동 생성 (Getter, Setter 등) |
 
 ## 🏁 시작하기
 

@@ -16,6 +16,6 @@ public class HelloController {
     public String hello() {
         // 이 메소드는 "안녕하세요! 백엔드 서버입니다." 라는 단순한 문자열을 반환합니다.
         // @RestController 덕분에, 이 문자열이 HTTP 응답의 본문(body)이 되어 클라이언트에게 전달됩니다.
-        return "안녕하세요! 백엔드 서버입니다.";
+        return "안녕하세요! 백엔드 서버입니다.Test123";
     }
 }
