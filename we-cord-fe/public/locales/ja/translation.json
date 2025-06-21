@@ -1,0 +1,11 @@
+{
+  "buttons": {
+    "requestData": "バックエンドにデータを要求する",
+    "loading": "読み込み中..."
+  },
+  "labels": {
+    "backendResponse": "バックエンドの応答:",
+    "initialMessage": "ボタンを押してデータを要求してください。",
+    "errorMessage": "データ要求に失敗しました。"
+  }
+}

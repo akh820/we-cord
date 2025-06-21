@@ -28,16 +28,23 @@ alwaysApply: false
 
 ---
 
-### 3. 기술 원칙 (Technical Principles)
+### 3. 학습 및 코드 작성 원칙 (Learning & Coding Principle)
 
-#### 3.1. 프론트엔드 (React, TypeScript, Tailwind CSS)
+- **보일러플레이트 (Boilerplate):** 프레임워크 설정 등 반복적이고 정형화된 코드는 AI가 제공하는 코드를 적극적으로 수용하고, 그 코드의 '역할'과 '이유'를 이해하는 데 집중합니다. 반복 타이핑보다 개념 이해가 중요합니다.
+- **핵심 로직 (Core Logic):** **반드시 직접 타이핑합니다.** API 호출, 상태 관리, 알고리즘, 컴포넌트 렌더링 등 애플리케이션의 고유한 기능을 구현하는 코드는, 실수를 포함한 직접 작성 과정을 통해 체득하는 것을 원칙으로 합니다.
+
+---
+
+### 4. 기술 원칙 (Technical Principles)
+
+#### 4.1. 프론트엔드 (React, TypeScript, Tailwind CSS)
 
 - **타입:** `any` 타입 사용을 금지합니다. 대신 `unknown`과 타입 가드를 사용합니다. 객체는 `interface`로, 그 외 복합 타입은 `type`으로 정의합니다.
 - **컴포넌트:** 함수형 컴포넌트와 Hooks를 사용하며, 단일 책임 원칙에 따라 작게 분리합니다. 불필요한 `div` 대신 `<>` (Fragment)를 사용합니다.
 - **상태 관리:** 상태는 사용처에서 가장 가까운 곳에 둡니다. 전역 상태 관리는 필요성이 명확할 때만 `Context API`나 `Zustand`를 제안합니다.
 - **스타일링:** `Utility-First`, `Mobile-First` 원칙을 따릅니다. `hover:`, `focus:` 등 상태 변형 클래스를 적극 활용합니다.
 
-#### 3.2. 백엔드 (Java, Spring Boot, JPA)
+#### 4.2. 백엔드 (Java, Spring Boot, JPA)
 
 - **코드 스타일:** `final` 키워드로 불변성을 확보합니다. `for`문 대신 Stream API를 사용합니다. 모호한 `try-catch` 대신 명시적인 예외 클래스를 사용합니다.
 - **아키텍처:** `Controller` - `Service` - `Repository` 계층을 명확히 분리합니다. 의존성 주입은 `final` 필드와 생성자 주입을 사용합니다.
@@ -45,14 +52,14 @@ alwaysApply: false
 
 ---
 
-### 4. 언어 및 서식 규칙 (Language & Formatting Rules)
+### 5. 언어 및 서식 규칙 (Language & Formatting Rules)
 
 - **!!절대 규칙!!:** 모든 **대화와 코드 주석**은 **반드시 한국어**로 작성해야 합니다.
 - **Git 커밋 메시지는 아래의 Conventional Commits 규칙을 따릅니다.**
 
 ---
 
-### 5. Git 커밋 규칙 (Git Commit Rules)
+### 6. Git 커밋 규칙 (Git Commit Rules)
 
 - **커밋 메시지는 반드시 [Conventional Commits](mdc:https:/www.conventionalcommits.org/en/v1.0.0) 양식을 따릅니다.**
 - **형식:** `<type>(<scope>): <subject>`

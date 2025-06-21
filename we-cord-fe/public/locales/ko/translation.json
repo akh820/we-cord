@@ -1,0 +1,11 @@
+{
+  "buttons": {
+    "requestData": "백엔드에 데이터 요청하기",
+    "loading": "로딩 중..."
+  },
+  "labels": {
+    "backendResponse": "백엔드 응답:",
+    "initialMessage": "버튼을 눌러 데이터를 요청하세요.",
+    "errorMessage": "데이터 요청에 실패했습니다."
+  }
+}
