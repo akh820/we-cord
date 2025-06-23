@@ -23,6 +23,10 @@ RUN npm run build
 # 경량 웹서버인 Nginx의 안정적인 버전을 기반으로 최종 이미지를 만듭니다.
 FROM nginx:stable-alpine
 
+# 우리가 방금 작성한 커스텀 Nginx 설정을 컨테이너의 기본 설정 위치로 복사합니다.
+# 이렇게 하면 Nginx가 우리의 리버스 프록시 규칙을 인지하고 동작하게 됩니다.
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # 1단계(builder)에서 생성된 빌드 결과물(/app/dist)을
 # Nginx의 기본 정적 파일 제공 폴더(/usr/share/nginx/html)로 복사합니다.
 COPY --from=builder /app/dist /usr/share/nginx/html
