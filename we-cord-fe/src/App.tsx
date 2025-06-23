@@ -4,7 +4,7 @@ import { useState } from "react";
 import { db } from "./lib/db"; // 1. 방금 만든 db 객체를 import 합니다.
 import { useLiveQuery } from "dexie-react-hooks"; // 2. 실시간 쿼리 훅을 import 합니다.
 import axiosInstance from "./api/axiosInstance";
-import type { AxiosResponse } from "axios"; // 값과 타입을 구문하기 위해 import type 설정 
+import type { AxiosResponse } from "axios"; // 값과 타입을 구문하기 위해 import type 설정
 
 function App() {
   // 3. useLiveQuery를 사용해 workouts 테이블의 모든 데이터를 가져옵니다.
@@ -27,13 +27,14 @@ function App() {
     }
   };
 
-  const [res,setRes] = useState<string | null>("통신 실패");
+  const [res, setRes] = useState<string | null>("통신 실패");
 
-  const testClick = async () =>{
+  const testClick = async () => {
     const response: AxiosResponse = await axiosInstance.get("api/hello");
     setRes(response.data);
     console.log(response);
-  }
+    console.log("CI/CDtest용 console");
+  };
 
   return (
     <>
