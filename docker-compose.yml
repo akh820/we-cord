@@ -1,0 +1,34 @@
+# Docker Compose 파일 포맷 버전을 정의합니다. 최신 버전을 사용하는 것이 좋습니다.
+version: '3.8'
+
+# 우리가 실행할 서비스(컨테이너)들의 묶음을 정의합니다.
+services:
+  # 백엔드 서비스를 'backend'라는 이름으로 정의합니다.
+  backend:
+    # 'we-cord-be' 폴더에 있는 Dockerfile을 사용하여 이미지를 빌드합니다.
+    build: ./we-cord-be
+    # 이 컨테이너의 이름을 'we-cord-backend-container'로 지정합니다.
+    container_name: we-cord-backend-container
+    # 외부에 8080 포트를 개방하고, 컨테이너의 8080 포트와 연결합니다.
+    # 즉, 서버의 8080 포트로 오는 요청을 이 컨테이너로 전달합니다.
+    ports:
+      - "8080:8080"
+    # 컨테이너가 예기치 않게 종료되면 자동으로 다시 시작합니다.
+    restart: always
+
+  # 프론트엔드 서비스를 'frontend'라는 이름으로 정의합니다.
+  frontend:
+    # 'we-cord-fe' 폴더에 있는 Dockerfile을 사용하여 이미지를 빌드합니다.
+    build: ./we-cord-fe
+    # 이 컨테이너의 이름을 'we-cord-frontend-container'로 지정합니다.
+    container_name: we-cord-frontend-container
+    # 외부에 80 포트를 개방하고, 컨테이너의 80 포트(Nginx)와 연결합니다.
+    # 웹사이트의 기본 포트이므로, 사용자는 도메인만으로 접속할 수 있습니다.
+    ports:
+      - "80:80"
+    # 컨테이너가 예기치 않게 종료되면 자동으로 다시 시작합니다.
+    restart: always
+    # 'backend' 서비스가 먼저 실행된 후에 'frontend' 서비스를 시작하도록 의존성을 설정합니다.
+    # 이렇게 해야 프론트엔드가 백엔드를 찾지 못하는 오류를 방지할 수 있습니다.
+    depends_on:
+      - backend 
