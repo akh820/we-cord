@@ -3,32 +3,53 @@
 
 # 우리가 실행할 서비스(컨테이너)들의 묶음을 정의합니다.
 services:
-  # 백엔드 서비스를 'backend'라는 이름으로 정의합니다.
+  # 1. 데이터베이스 서비스 (PostgreSQL)
+  db:
+    image: postgres:15
+    container_name: we-cord-db-container
+    restart: always
+    # .env 파일에 정의한 비밀번호 등을 환경 변수로 주입
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    ports:
+      - "5432:5432" # 외부에서 DB에 접속해야 할 경우를 위해 포트 개방
+    # Docker Volume을 사용한 데이터 영구 보존 설정
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  # 2. 백엔드 서비스
   backend:
-    # 'we-cord-be' 폴더에 있는 Dockerfile을 사용하여 이미지를 빌드합니다.
-    build: ./we-cord-be
-    # 이 컨테이너의 이름을 'we-cord-backend-container'로 지정합니다.
+    build:
+      context: ./we-cord-be
+      dockerfile: Dockerfile
     container_name: we-cord-backend-container
-    # 외부에 8080 포트를 개방하고, 컨테이너의 8080 포트와 연결합니다.
-    # 즉, 서버의 8080 포트로 오는 요청을 이 컨테이너로 전달합니다.
+    restart: always
     ports:
       - "8080:8080"
-    # 컨테이너가 예기치 않게 종료되면 자동으로 다시 시작합니다.
-    restart: always
+    # 백엔드가 DB에 접속할 정보를 환경 변수로 주입
+    environment:
+      - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+    # DB 서비스가 먼저 실행된 후에 백엔드가 실행되도록 순서 지정
+    depends_on:
+      - db
 
-  # 프론트엔드 서비스를 'frontend'라는 이름으로 정의합니다.
+  # 3. 프론트엔드 서비스
   frontend:
-    # 'we-cord-fe' 폴더에 있는 Dockerfile을 사용하여 이미지를 빌드합니다.
-    build: ./we-cord-fe
-    # 이 컨테이너의 이름을 'we-cord-frontend-container'로 지정합니다.
+    build:
+      context: ./we-cord-fe
+      dockerfile: Dockerfile
     container_name: we-cord-frontend-container
-    # 외부에 80 포트를 개방하고, 컨테이너의 80 포트(Nginx)와 연결합니다.
-    # 웹사이트의 기본 포트이므로, 사용자는 도메인만으로 접속할 수 있습니다.
+    restart: always
     ports:
       - "80:80"
-    # 컨테이너가 예기치 않게 종료되면 자동으로 다시 시작합니다.
-    restart: always
-    # 'backend' 서비스가 먼저 실행된 후에 'frontend' 서비스를 시작하도록 의존성을 설정합니다.
-    # 이렇게 해야 프론트엔드가 백엔드를 찾지 못하는 오류를 방지할 수 있습니다.
+    # 백엔드 서비스가 실행된 후에 프론트엔드가 실행되도록 순서 지정
     depends_on:
-      - backend 
+      - backend
+
+# Docker Volume 정의 (데이터 영구 저장을 위한 공간)
+volumes:
+  postgres_data: {}
