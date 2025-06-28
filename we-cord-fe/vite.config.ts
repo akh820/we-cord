@@ -17,7 +17,7 @@ export default defineConfig({
       manifest: {
         name: "We-Cord",
         short_name: "We-Cord",
-        description: "우리를 기록하고 공유하세요.",
+        description: "우리를 기록하다",
         theme_color: "#ffffff",
         icons: [
           {
@@ -54,6 +54,15 @@ export default defineConfig({
       },
     }),
   ],
+  server: {
+    proxy: {
+      // '/api'로 시작하는 요청은 백엔드 서버로 프록시합니다.
+      "/api": {
+        target: "http://localhost:8080", // 백엔드 서버 주소
+        changeOrigin: true, // 요청의 Origin 헤더를 백엔드 서버와 일치시킵니다.
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
