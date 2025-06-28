@@ -1,65 +1,48 @@
 import { Button } from "@/components/ui/button";
 import ReloadPrompt from "./components/ReloadPrompt";
 import { useState } from "react";
-import { db } from "./lib/db"; // 1. 방금 만든 db 객체를 import 합니다.
-import { useLiveQuery } from "dexie-react-hooks"; // 2. 실시간 쿼리 훅을 import 합니다.
 import axiosInstance from "./api/axiosInstance";
 import type { AxiosResponse } from "axios"; // 값과 타입을 구문하기 위해 import type 설정
 
 function App() {
-  // 3. useLiveQuery를 사용해 workouts 테이블의 모든 데이터를 가져옵니다.
-  //    IndexedDB 데이터가 변경될 때마다 이 컴포넌트는 자동으로 다시 렌더링됩니다.
-  const allWorkouts = useLiveQuery(() => db.workouts.toArray());
-
-  // 4. 간단한 테스트 데이터를 추가하는 함수입니다.
-  const addTestWorkout = async () => {
-    try {
-      await db.workouts.add({
-        exerciseName: "벤치프레스",
-        weight: 60,
-        reps: 10,
-        sets: 3,
-        createdAt: new Date(),
-      });
-      console.log("테스트 운동 기록이 추가되었습니다.");
-    } catch (error) {
-      console.error("데이터 추가 실패:", error);
-    }
-  };
-
-  const [res, setRes] = useState<string | null>("통신 실패");
+  const [res, setRes] = useState<string | null>("통신 대기중");
 
   const testClick = async () => {
-    const response: AxiosResponse = await axiosInstance.get("api/hello");
-    setRes(response.data);
-    console.log(response);
-    console.log("CI/CDtest용 console");
+    setRes("통신 중...");
+    try {
+      const response: AxiosResponse<string> = await axiosInstance.get(
+        "api/hello"
+      );
+      setRes(response.data);
+    } catch (error) {
+      console.error("API call failed:", error);
+      setRes("통신 실패");
+    }
   };
 
   return (
     <>
       <ReloadPrompt />
-      <div className="flex h-screen flex-col items-center justify-center gap-4 p-4">
-        <h1 className="text-2xl font-bold">We-Cord 오프라인 테스트</h1>
+      <main className="h-dvh bg-background text-foreground">
+        <div className="container mx-auto flex h-full max-w-md flex-col items-center p-4">
+          <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
+            <h1 className="text-4xl font-bold tracking-tight">We-Cord</h1>
+            <p className="text-muted-foreground">
+              API 서버와 통신을 테스트합니다.
+            </p>
+          </div>
 
-        <Button onClick={addTestWorkout}>테스트 운동 기록 추가</Button>
-        <div className="w-full max-w-md rounded-md border bg-gray-100 p-4">
-          <h2 className="mb-2 font-semibold">저장된 운동 기록:</h2>
-          <ul className="list-disc pl-5">
-            {/* 5. 가져온 데이터를 화면에 표시합니다. */}
-            {allWorkouts?.map((workout) => (
-              <li key={workout.id}>
-                {workout.exerciseName} - {workout.weight}kg, {workout.reps}회,{" "}
-                {workout.sets}세트
-              </li>
-            ))}
-          </ul>
+          <div className="w-full space-y-4 py-4">
+            <Button onClick={testClick} className="w-full" size="lg">
+              통신 테스트
+            </Button>
+            <div className="rounded-lg border bg-card p-4 text-card-foreground">
+              <h2 className="font-semibold">통신 결과</h2>
+              <p className="mt-2 text-muted-foreground">{res}</p>
+            </div>
+          </div>
         </div>
-        <Button onClick={testClick}>통신 테스트</Button>
-        <div className="w-full max-w-md rounded-md border bg-gray-100 p-4">
-          <div>통신 데이터 : {res}</div>
-        </div>
-      </div>
+      </main>
     </>
   );
 }

@@ -82,7 +82,7 @@ define(['./workbox-54d0af47'], (function (workbox) { 'use strict';
     "revision": "3ca0b8505b4bec776b69afdba2768812"
   }, {
     "url": "index.html",
-    "revision": "0.bjms7j448ng" //indexhtml이 수정되면 파일 내용이 바뀐거라고 간주, 잘 바뀌었으므로 오프라인 캐싱이 잘작동하고있다.
+    "revision": "0.mqls8a5vl38"
   }], {});
   workbox.cleanupOutdatedCaches();
   workbox.registerRoute(new workbox.NavigationRoute(workbox.createHandlerBoundToURL("index.html"), {
