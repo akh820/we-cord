@@ -30,6 +30,7 @@ services:
       - "8080:8080"
     # 백엔드가 DB에 접속할 정보를 환경 변수로 주입
     environment:
+      - SPRING_PROFILES_ACTIVE=prod
       - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
