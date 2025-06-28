@@ -3,9 +3,11 @@ import ReloadPrompt from "./components/ReloadPrompt";
 import { useState } from "react";
 import axiosInstance from "./api/axiosInstance";
 import type { AxiosResponse } from "axios"; // 값과 타입을 구문하기 위해 import type 설정
+import { useNavigate } from "react-router-dom";
 
 function App() {
   const [res, setRes] = useState<string | null>("통신 대기중");
+  const navigate = useNavigate();
 
   const testClick = async () => {
     setRes("통신 중...");
@@ -20,6 +22,10 @@ function App() {
     }
   };
 
+  const goToCalender = () => {
+    navigate("/calender");
+  };
+
   return (
     <>
       <ReloadPrompt />
@@ -27,9 +33,9 @@ function App() {
         <div className="container mx-auto flex h-full max-w-md flex-col items-center p-4">
           <div className="flex flex-1 flex-col items-center justify-center gap-6 text-center">
             <h1 className="text-4xl font-bold tracking-tight">We-Cord</h1>
-            <p className="text-muted-foreground">
-              API 서버와 통신을 테스트합니다.
-            </p>
+            <Button className="w-full" onClick={goToCalender} size="lg">
+              운동 기록하러 가기
+            </Button>
           </div>
 
           <div className="w-full space-y-4 py-4">
