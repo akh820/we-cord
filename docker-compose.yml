@@ -6,7 +6,7 @@ services:
     image: nginx:latest
     container_name: we-cord-nginx-container
     ports:
-      - "80:80"   # HTTP 포트
+      - "80:80" # HTTP 포트
       - "443:443" # HTTPS 포트
     volumes:
       # 2단계에서 만든 설정 파일을 컨테이너 내부의 기본 설정 폴더에 연결
@@ -53,7 +53,7 @@ services:
     # ports: 부분을 제거합니다. 외부에서 직접 접근하지 않습니다.
     environment:
       - SPRING_PROFILES_ACTIVE=prod
-      - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}
+      - DB_URL=jdbc:postgresql://db:5432/${DB_NAME}?sslmode=disable
       - DB_USER=${DB_USER}
       - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
