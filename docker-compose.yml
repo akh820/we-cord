@@ -20,14 +20,15 @@ services:
       - frontend
     restart: always
 
-  # 2. Certbot (새로 추가)
+    # 2. Certbot (새로 추가)
   certbot:
-    image: certbot/certbot
+    image: certbot/dns-cloudflare # <--- Cloudflare 플러그인 장착 모델로 변경!
     container_name: we-cord-certbot-container
     volumes:
       - certbot_certs:/etc/letsencrypt
       - certbot_www:/var/www/certbot
-    # SSL 인증서 발급/갱신 시에만 실행할 것이므로 포트나 재시작 설정은 불필요
+      # 호스트의 API 토큰 파일을 컨테이너 내부로 연결해주는 부분 추가!
+      - /etc/letsencrypt/cloudflare.ini:/etc/letsencrypt/cloudflare.ini:ro
 
   # 3. 데이터베이스 서비스 (기존과 동일)
   db:
